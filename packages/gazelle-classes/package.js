@@ -1,7 +1,7 @@
 Package.describe({
-  name: 'gazelle-users',
+  name: 'gazelle-classes',
   version: '0.0.1',
-  summary: 'Base functionality for users.',
+  summary: 'Provides functionality for user classes.',
   documentation: 'README.md',
   git: 'https://github.com/meteor-gazelle/meteor-gazelle.git'
 });
@@ -9,9 +9,14 @@ Package.describe({
 Package.onUse(function (api) {
   api.versionsFrom('1.1.0.2');
 
-  api.use([
-    'gazelle-lib'
-  ]);
+  var packages = [
+    'gazelle-lib',
+    'gazelle-schema',
+    'gazelle-users'
+  ];
+
+  api.use(packages);
+  api.imply(packages);
 
   api.addFiles([
     'lib/config.js',
@@ -19,14 +24,10 @@ Package.onUse(function (api) {
     'lib/model.js'
   ], ['client', 'server']);
 
-  api.export('Users');
+  api.export([
+    'Gazelle'
+  ]);
 });
 
 Package.onTest(function (api) {
-
-  //TODO: Why is this causing the tests to stall?
-  //api.use('gazelle-users', ['client', 'server']);
-  api.use('tinytest', ['client', 'server']);
-
-  api.addFiles('tests/server.js', 'server');
 });
